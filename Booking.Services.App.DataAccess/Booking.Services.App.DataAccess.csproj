@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Booking.Services.App.Data\Booking.Services.App.Data.csproj" />
+    <ProjectReference Include="..\Booking.Services.App.DomainModels\Booking.Services.App.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+</Project>

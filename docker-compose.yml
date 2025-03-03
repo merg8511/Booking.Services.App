@@ -1,0 +1,35 @@
+services:
+  booking-db:
+    image: mysql:8
+    container_name: booking-db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=8511
+      - MYSQL_DATABASE=bookingdb
+    ports:
+      - "3306:3306"
+    networks:
+      - booking-network
+    volumes:
+      - booking_data:/var/lib/mysql
+
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-server
+    depends_on:
+      - booking-db
+    environment:
+      - ConnectionStrings__DefaultConnection=server=booking-db;port=3306;database=bookingdb;user=root;password=8511
+    ports:
+      - "5000:8080"
+    networks:
+      - booking-network
+
+volumes:
+  booking_data:
+
+networks:
+  booking-network:
+    driver: bridge
