@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NUlid" Version="1.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Booking.Services.App.Data\Booking.Services.App.Data.csproj" />
     <ProjectReference Include="..\Booking.Services.App.DomainModels\Booking.Services.App.Models.csproj" />
   </ItemGroup>

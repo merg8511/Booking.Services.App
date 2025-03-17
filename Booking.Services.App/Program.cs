@@ -1,14 +1,6 @@
 using Booking.Services.App.Extensions;
 using Booking.Services.App.Middleware;
-using Booking.Services.App.Models.Models;
 using Booking.Services.App.Modules.Interfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +15,8 @@ builder.Services.RegisterModules();
 
 var app = builder.Build();
 
-app.UseRouting();  
-app.MapEndpoints(); 
+app.UseRouting();
+app.MapEndpoints();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");

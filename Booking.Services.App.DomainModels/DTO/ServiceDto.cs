@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Booking.Services.App.Models.DTO
 {
     public class ServiceDto
     {
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(250, MinimumLength = 1, ErrorMessage = "El nombre debe ser mínimo {2} máximo {1} caracteres")]
         public string Name { get; set; }

@@ -1,11 +1,6 @@
 ﻿using Booking.Services.App.Data.Interfaces.IRepository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Booking.Services.App.Data.Repositories
 {
@@ -47,17 +42,15 @@ namespace Booking.Services.App.Data.Repositories
         public async Task<T> FindAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
             IQueryable<T> query = _dbSet;
-
             if (filter != null)
             {
                 query = query.Where(filter);
             }
-
             if (includeProperties != null)
             {
-                foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var ip in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(property);
+                    query = query.Include(ip);
                 }
             }
 

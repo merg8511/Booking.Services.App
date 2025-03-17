@@ -1,9 +1,4 @@
-﻿using Booking.Services.App.BusinessLogic.Interfaces;
-using Booking.Services.App.BusinessLogic.Services;
-using Booking.Services.App.Data;
-using Booking.Services.App.Data.Interfaces;
-using Booking.Services.App.Data.Interfaces.IRepository;
-using Booking.Services.App.Data.Repositories;
+﻿using Booking.Services.App.Data.Repositories;
 //using Booking.Services.App.Data.Services;
 using Booking.Services.App.Errors;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +36,7 @@ namespace Booking.Services.App.Extensions
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
-          
+
             return services;
         }
     }

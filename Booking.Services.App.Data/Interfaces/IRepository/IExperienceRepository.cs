@@ -2,8 +2,8 @@
 
 namespace Booking.Services.App.Data.Interfaces.IRepository
 {
-    public interface IServiceRepository : IRepository<Service>
+    public interface IExperienceRepository : IRepository<Experience>
     {
-        Task Update(Service service);
+
     }
 }

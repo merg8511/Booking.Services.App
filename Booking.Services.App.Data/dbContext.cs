@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using Booking.Services.App.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Booking.Services.App.Data
+namespace Booking.Services.App.Data.Repositories
 {
-
     public partial class dbContext : DbContext
     {
         public dbContext(DbContextOptions<dbContext> options)
@@ -217,15 +216,17 @@ namespace Booking.Services.App.Data
                 entity.Property(e => e.Id)
                     .HasMaxLength(45)
                     .HasColumnName("id");
+                entity.Property(e => e.CreatedBy)
+                    .HasMaxLength(45)
+                    .HasColumnName("created_by");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("creation_date");
                 entity.Property(e => e.Description)
                     .HasColumnType("text")
                     .HasColumnName("description");
-                entity.Property(e => e.IsActive)
-                    .HasDefaultValueSql("'1'")
-                    .HasColumnName("is_active");
-                entity.Property(e => e.IsIncluded)
-                    .HasDefaultValueSql("'0'")
-                    .HasColumnName("is_included");
+                entity.Property(e => e.IsActive).HasColumnName("is_active");
+                entity.Property(e => e.IsIncluded).HasColumnName("is_included");
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255)
