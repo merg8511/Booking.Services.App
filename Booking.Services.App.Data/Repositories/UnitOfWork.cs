@@ -1,9 +1,4 @@
 ﻿using Booking.Services.App.Data.Interfaces.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Booking.Services.App.Data.Repositories
 {
@@ -12,11 +7,13 @@ namespace Booking.Services.App.Data.Repositories
         private readonly dbContext _context;
 
         public IServiceRepository Service { get; private set; }
+        public IExperienceRepository Experience { get; private set; }
 
         public UnitOfWork(dbContext context)
         {
             _context = context;
             Service = new ServiceRepository(_context);
+            Experience = new ExperienceRepository(_context);
         }
         public async Task SaveAsync()
         {

@@ -1,14 +1,17 @@
 ﻿using Booking.Services.App.Models.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Booking.Services.App.BusinessLogic.Interfaces
 {
     public interface IBookingManager
     {
+        //SERVICES
         Task<IEnumerable<ServiceDto>> GetAllServicesAsync();
+        Task<ServiceDto> GetFirstAsync(string id);
+        Task<ServiceDto> AddAsync(ServiceDto serviceDto);
+        Task UpdateServiceAsync(ServiceDto serviceDto);
+        Task Remove(string id);
+
+        //EXPERIENCES
+        Task<IEnumerable<ExperienceDto>> GetAllExperiencesAsync();
     }
 }

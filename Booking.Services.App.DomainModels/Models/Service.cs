@@ -15,9 +15,13 @@ public partial class Service
 
     public decimal? Price { get; set; }
 
-    public bool? IsIncluded { get; set; }
+    public sbyte? IsIncluded { get; set; }
 
-    public bool? IsActive { get; set; }
+    public sbyte? IsActive { get; set; }
+
+    public DateTime? CreationDate { get; set; }
+
+    public string CreatedBy { get; set; }
 
     public virtual ICollection<ReservationService> ReservationServices { get; set; } = new List<ReservationService>();
 }
