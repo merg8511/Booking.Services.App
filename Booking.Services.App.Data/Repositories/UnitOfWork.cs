@@ -7,13 +7,13 @@ namespace Booking.Services.App.Data.Repositories
         private readonly dbContext _context;
 
         public IServiceRepository Service { get; private set; }
-        public IExperienceRepository Experience { get; private set; }
+        public IServiceCategoryRepository ServiceCategory { get; private set; }
 
         public UnitOfWork(dbContext context)
         {
             _context = context;
             Service = new ServiceRepository(_context);
-            Experience = new ExperienceRepository(_context);
+            ServiceCategory = new ServiceCategoryRepository(_context);
         }
         public async Task SaveAsync()
         {

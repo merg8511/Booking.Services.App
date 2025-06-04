@@ -1,4 +1,5 @@
-﻿using Booking.Services.App.Data.Repositories;
+﻿using Booking.Services.App.Data;
+using Booking.Services.App.Data.Repositories;
 //using Booking.Services.App.Data.Services;
 using Booking.Services.App.Errors;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,15 @@ namespace Booking.Services.App.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("BookingConnection");
+            var IdentityConnectionString = configuration.GetConnectionString("BookingConnection");
             services.AddDbContext<dbContext>(options =>
+                options.UseMySql(connectionString,
+                ServerVersion.AutoDetect(connectionString),
+                options => options.EnableRetryOnFailure())
+                );
+
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(connectionString,
                 ServerVersion.AutoDetect(connectionString),
                 options => options.EnableRetryOnFailure())
