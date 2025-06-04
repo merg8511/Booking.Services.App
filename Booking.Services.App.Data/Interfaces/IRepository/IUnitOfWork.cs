@@ -3,7 +3,7 @@
     public interface IUnitOfWork : IDisposable
     {
         IServiceRepository Service { get; }
-        IExperienceRepository Experience { get; }
+        IServiceCategoryRepository ServiceCategory { get; }
         Task SaveAsync();
     }
 }

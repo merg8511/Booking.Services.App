@@ -15,31 +15,11 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "experience",
-         "ObjectType": 0
-      },
-      {
-         "Name": "faq",
-         "ObjectType": 0
-      },
-      {
-         "Name": "gallery",
-         "ObjectType": 0
-      },
-      {
-         "Name": "payment",
-         "ObjectType": 0
-      },
-      {
-         "Name": "reservation",
-         "ObjectType": 0
-      },
-      {
-         "Name": "reservation_service",
-         "ObjectType": 0
-      },
-      {
          "Name": "service",
+         "ObjectType": 0
+      },
+      {
+         "Name": "service_category",
          "ObjectType": 0
       }
    ],

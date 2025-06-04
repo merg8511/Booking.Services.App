@@ -13,17 +13,27 @@ namespace Booking.Services.App.Data.Repositories
             _context = context;
         }
 
+        public Task SoftDelete(Service service)
+        {
+            service.Deleted = 1;
+            return Task.CompletedTask;
+        }
+
         public async Task Update(Service service)
         {
             var serviceToUpdate = await _context.Services.FirstOrDefaultAsync(s => s.Id == service.Id);
 
-            if (serviceToUpdate != null)
+            if (serviceToUpdate is not null)
             {
-                serviceToUpdate.Name = service.Name;
+                serviceToUpdate.Title = service.Title;
+                serviceToUpdate.Subtitle = service.Subtitle;
                 serviceToUpdate.Description = service.Description;
-                serviceToUpdate.Price = service.Price;
-                serviceToUpdate.IsIncluded = service.IsIncluded;
+                serviceToUpdate.ImageUrl = service.ImageUrl;
                 serviceToUpdate.IsActive = service.IsActive;
+                serviceToUpdate.IsOptional = service.IsOptional;
+                serviceToUpdate.IsFeatured = service.IsFeatured;
+                serviceToUpdate.PricePerDay = service.PricePerDay;
+                serviceToUpdate.CategoryId = service.CategoryId;
             }
 
             await _context.SaveChangesAsync();
