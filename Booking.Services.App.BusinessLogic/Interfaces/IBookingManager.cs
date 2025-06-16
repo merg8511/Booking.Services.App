@@ -7,10 +7,10 @@ namespace Booking.Services.App.BusinessLogic.Interfaces
         #region SERVICES CATEGORIES 
 
         //SERVICES CATEGORIES
-        Task<IEnumerable<ServiceCategoryDto>> GetAllServiceCategoriesAsync();
-        Task<ServiceCategoryDto> GetFirstServiceCategoryAsync(string id);
-        Task<ServiceCategoryDto> AddServiceCategoryAsync(ServiceCategoryDto serviceCategoryDto);
-        Task UpdateServiceCategoryAsync(ServiceCategoryDto serviceCategoryDto);
+        Task<IEnumerable<ServiceCategoryResponse>> GetAllServiceCategoriesAsync();
+        Task<ServiceCategoryResponse> GetServiceCategoryByIdAsync(string id);
+        Task<ServiceCategoryResponse> AddServiceCategoryAsync(ServiceCategoryRequest serviceCategoryRequest);
+        Task UpdateServiceCategoryAsync(ServiceCategoryRequest serviceCategoryRequest);
         Task RemoveServiceCategory(string id);
 
         #endregion
@@ -18,10 +18,10 @@ namespace Booking.Services.App.BusinessLogic.Interfaces
         #region SERVICES
 
         //SERVICES
-        Task<IEnumerable<ServiceDto>> GetAllServicesAsync();
-        Task<ServiceDto> GetFirstServiceAsync(string id);
-        Task<ServiceDto> AddServiceAsync(ServiceDto serviceDto);
-        Task UpdateServiceAsync(ServiceDto serviceDto);
+        Task<IEnumerable<ServiceResponse>> GetAllServicesAsync();
+        Task<ServiceResponse> GetServiceByIdAsync(string id);
+        Task<ServiceResponse> AddServiceAsync(ServiceRequest serviceRequest);
+        Task UpdateServiceAsync(ServiceRequest serviceRequest);
         Task RemoveService(string id);
 
         #endregion

@@ -16,14 +16,14 @@ namespace Booking.Services.App.BusinessLogic.Services
         }
 
         #region SERVICES CATEGORIES
-        public async Task<IEnumerable<ServiceCategoryDto>> GetAllServiceCategoriesAsync()
+        public async Task<IEnumerable<ServiceCategoryResponse>> GetAllServiceCategoriesAsync()
         {
             try
             {
                 var serviceCategories = await _unitOfWork.ServiceCategory.GetAllAsync(
                     orderBy: x => x.OrderBy(x => x.Name));
 
-                var serviceCategoriesDto = serviceCategories.Adapt<IEnumerable<ServiceCategoryDto>>();
+                var serviceCategoriesDto = serviceCategories.Adapt<IEnumerable<ServiceCategoryResponse>>();
 
                 return serviceCategoriesDto;
             }
@@ -33,12 +33,12 @@ namespace Booking.Services.App.BusinessLogic.Services
             }
         }
 
-        public async Task<ServiceCategoryDto> GetFirstServiceCategoryAsync(string id)
+        public async Task<ServiceCategoryResponse> GetServiceCategoryByIdAsync(string id)
         {
             try
             {
                 var serviceCategory = await _unitOfWork.ServiceCategory.FindAsync(x => x.Id == id);
-                var serviceCategoryDto = serviceCategory.Adapt<ServiceCategoryDto>();
+                var serviceCategoryDto = serviceCategory.Adapt<ServiceCategoryResponse>();
                 return serviceCategoryDto;
             }
             catch (Exception)
@@ -47,11 +47,11 @@ namespace Booking.Services.App.BusinessLogic.Services
             }
         }
 
-        public async Task<ServiceCategoryDto> AddServiceCategoryAsync(ServiceCategoryDto serviceCategoryDto)
+        public async Task<ServiceCategoryResponse> AddServiceCategoryAsync(ServiceCategoryRequest serviceCategoryRequest)
         {
             try
             {
-                var serviceCategory = serviceCategoryDto.Adapt<ServiceCategory>();
+                var serviceCategory = serviceCategoryRequest.Adapt<ServiceCategory>();
 
                 serviceCategory.Id = NUlid.Ulid.NewUlid().ToString();
                 serviceCategory.IsActive = 1;
@@ -60,7 +60,7 @@ namespace Booking.Services.App.BusinessLogic.Services
                 await _unitOfWork.ServiceCategory.Add(serviceCategory);
                 await _unitOfWork.SaveAsync();
 
-                return serviceCategory.Adapt<ServiceCategoryDto>();
+                return serviceCategory.Adapt<ServiceCategoryResponse>();
             }
             catch (Exception)
             {
@@ -68,15 +68,17 @@ namespace Booking.Services.App.BusinessLogic.Services
             }
         }
 
-        public async Task UpdateServiceCategoryAsync(ServiceCategoryDto serviceCategoryDto)
+        public async Task UpdateServiceCategoryAsync(ServiceCategoryRequest serviceCategoryRequest)
         {
             try
             {
-                var serviceCategory = await _unitOfWork.ServiceCategory.FindAsync(x => x.Id == serviceCategoryDto.Id);
+                var serviceCategory = await _unitOfWork.ServiceCategory.FindAsync(x => x.Id == serviceCategoryRequest.Id);
 
                 if (serviceCategory is null) throw new TaskCanceledException("Category not found.");
 
-                await _unitOfWork.ServiceCategory.Update(serviceCategoryDto.Adapt(serviceCategory));
+                serviceCategoryRequest.Adapt(serviceCategory);
+
+                await _unitOfWork.ServiceCategory.Update(serviceCategory);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)
@@ -104,13 +106,13 @@ namespace Booking.Services.App.BusinessLogic.Services
         #endregion
 
         #region SERVICES
-        public async Task<IEnumerable<ServiceDto>> GetAllServicesAsync()
+        public async Task<IEnumerable<ServiceResponse>> GetAllServicesAsync()
         {
             try
             {
                 var services = await _unitOfWork.Service.GetAllAsync(
                     orderBy: x => x.OrderBy(x => x.Title));
-                var servicesDto = services.Adapt<IEnumerable<ServiceDto>>();
+                var servicesDto = services.Adapt<IEnumerable<ServiceResponse>>();
 
                 return servicesDto;
             }
@@ -119,12 +121,12 @@ namespace Booking.Services.App.BusinessLogic.Services
                 throw;
             }
         }
-        public async Task<ServiceDto> GetFirstServiceAsync(string id)
+        public async Task<ServiceResponse> GetServiceByIdAsync(string id)
         {
             try
             {
                 var service = await _unitOfWork.Service.FindAsync(x => x.Id == id);
-                var serviceDto = service.Adapt<ServiceDto>();
+                var serviceDto = service.Adapt<ServiceResponse>();
                 return serviceDto;
             }
             catch (Exception)
@@ -133,11 +135,11 @@ namespace Booking.Services.App.BusinessLogic.Services
             }
         }
 
-        public async Task<ServiceDto> AddServiceAsync(ServiceDto serviceDto)
+        public async Task<ServiceResponse> AddServiceAsync(ServiceRequest serviceRequest)
         {
             try
             {
-                var service = serviceDto.Adapt<Service>();
+                var service = serviceRequest.Adapt<Service>();
 
                 service.Id = NUlid.Ulid.NewUlid().ToString();
                 service.IsActive = 1;
@@ -146,22 +148,24 @@ namespace Booking.Services.App.BusinessLogic.Services
                 await _unitOfWork.Service.Add(service);
                 await _unitOfWork.SaveAsync();
 
-                return service.Adapt<ServiceDto>();
+                return service.Adapt<ServiceResponse>();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public async Task UpdateServiceAsync(ServiceDto serviceDto)
+        public async Task UpdateServiceAsync(ServiceRequest serviceRequest)
         {
             try
             {
-                var service = await _unitOfWork.Service.FindAsync(x => x.Id == serviceDto.Id);
+                var service = await _unitOfWork.Service.FindAsync(x => x.Id == serviceRequest.Id);
 
-                if (service == null) throw new TaskCanceledException("El servicio no existe");
+                if (service == null) throw new TaskCanceledException("Service not found");
 
-                await _unitOfWork.Service.Update(serviceDto.Adapt(service));
+                serviceRequest.Adapt(service);
+
+                await _unitOfWork.Service.Update(service);
                 await _unitOfWork.SaveAsync();
             }
             catch (Exception)

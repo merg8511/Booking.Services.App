@@ -94,7 +94,7 @@ public partial class dbContext : DbContext
                 .HasDefaultValueSql("'0'")
                 .HasColumnName("deleted");
             entity.Property(e => e.Icon)
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .HasColumnName("icon");
             entity.Property(e => e.IsActive)
                 .HasDefaultValueSql("'1'")
