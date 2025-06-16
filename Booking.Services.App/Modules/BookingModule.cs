@@ -47,16 +47,12 @@ namespace Booking.Services.App.Modules
             {
                 try
                 {
-                    var response = await _bookingManager.GetFirstServiceCategoryAsync(id);
+                    var response = await _bookingManager.GetServiceCategoryByIdAsync(id);
 
                     if (response == null)
                         return Results.NotFound();
 
-                    return Results.Ok(new ApiResponse
-                    {
-                        Resultado = response,
-                        IsExitoso = true
-                    });
+                    return Results.Ok(response);
                 }
                 catch (Exception ex)
                 {
@@ -67,11 +63,11 @@ namespace Booking.Services.App.Modules
                .WithName("GetServiceCategory")
                .WithOpenApi();
 
-            endpoints.MapPost("/api/serviceCategories", async (IBookingManager _bookingManager, ServiceCategoryDto serviceCategoryDto) =>
+            endpoints.MapPost("/api/serviceCategories", async (IBookingManager _bookingManager, ServiceCategoryRequest serviceCategoryRequest) =>
             {
                 try
                 {
-                    var response = await _bookingManager.AddServiceCategoryAsync(serviceCategoryDto);
+                    var response = await _bookingManager.AddServiceCategoryAsync(serviceCategoryRequest);
 
                     if (response == null)
                         return Results.Problem("No se pudo crear el recurso", statusCode: (int)HttpStatusCode.InternalServerError);
@@ -85,15 +81,15 @@ namespace Booking.Services.App.Modules
                 }
             })
                 //.RequireAuthorization("AdminAgendaRol")
-                .AddEndpointFilter<ValidationFilter<ServiceCategoryDto>>()
+                .AddEndpointFilter<ValidationFilter<ServiceCategoryRequest>>()
                 .WithName("AddServiceCategory")
                 .WithOpenApi();
 
-            endpoints.MapPut("/api/serviceCategories", async (IBookingManager _bookingManager, ServiceCategoryDto serviceCategoryDto) =>
+            endpoints.MapPut("/api/serviceCategories", async (IBookingManager _bookingManager, ServiceCategoryRequest serviceCategoryRequest) =>
             {
                 try
                 {
-                    await _bookingManager.UpdateServiceCategoryAsync(serviceCategoryDto);
+                    await _bookingManager.UpdateServiceCategoryAsync(serviceCategoryRequest);
                     return Results.NoContent();
                 }
                 catch (Exception ex)
@@ -102,6 +98,7 @@ namespace Booking.Services.App.Modules
                 }
             })
                 //.RequireAuthorization("AdminAgendaRol")
+                .AddEndpointFilter<ValidationFilter<ServiceCategoryRequest>>()
                 .WithName("UpdateServiceCategory")
                 .WithOpenApi();
 
@@ -146,16 +143,12 @@ namespace Booking.Services.App.Modules
             {
                 try
                 {
-                    var response = await _bookingManager.GetFirstServiceAsync(id);
+                    var response = await _bookingManager.GetServiceByIdAsync(id);
 
                     if (response == null)
                         return Results.NotFound();
 
-                    return Results.Ok(new ApiResponse
-                    {
-                        Resultado = response,
-                        IsExitoso = true
-                    });
+                    return Results.Ok(response);
                 }
                 catch (Exception ex)
                 {
@@ -166,11 +159,11 @@ namespace Booking.Services.App.Modules
                .WithName("GetService")
                .WithOpenApi();
 
-            endpoints.MapPost("/api/services", async (IBookingManager _bookingManager, ServiceDto serviceDto) =>
+            endpoints.MapPost("/api/services", async (IBookingManager _bookingManager, ServiceRequest serviceRequest) =>
             {
                 try
                 {
-                    var response = await _bookingManager.AddServiceAsync(serviceDto);
+                    var response = await _bookingManager.AddServiceAsync(serviceRequest);
 
                     if (response == null)
                         return Results.Problem("No se pudo crear el recurso", statusCode: (int)HttpStatusCode.InternalServerError);
@@ -184,15 +177,15 @@ namespace Booking.Services.App.Modules
                 }
             })
                 //.RequireAuthorization("AdminAgendaRol")
-                .AddEndpointFilter<ValidationFilter<ServiceDto>>()
+                .AddEndpointFilter<ValidationFilter<ServiceRequest>>()
                 .WithName("AddService")
                 .WithOpenApi();
 
-            endpoints.MapPut("/api/services", async (IBookingManager _bookingManager, ServiceDto serviceDto) =>
+            endpoints.MapPut("/api/services", async (IBookingManager _bookingManager, ServiceRequest serviceRequest) =>
             {
                 try
                 {
-                    await _bookingManager.UpdateServiceAsync(serviceDto);
+                    await _bookingManager.UpdateServiceAsync(serviceRequest);
                     return Results.NoContent();
                 }
                 catch (Exception ex)
@@ -201,6 +194,7 @@ namespace Booking.Services.App.Modules
                 }
             })
                 //.RequireAuthorization("AdminAgendaRol")
+                .AddEndpointFilter<ValidationFilter<ServiceRequest>>()
                 .WithName("UpdateService")
                 .WithOpenApi();
 

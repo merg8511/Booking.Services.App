@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services.App.Models.DTO
 {
-    public class ServiceDto
+    public class ServiceRequest
     {
         public string Id { get; set; }
-
         public string CategoryId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
@@ -18,7 +22,6 @@ namespace Booking.Services.App.Models.DTO
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string Description { get; set; }
-
         public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
@@ -32,6 +35,5 @@ namespace Booking.Services.App.Models.DTO
 
         public decimal? PricePerDay { get; set; }
         public sbyte Deleted { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

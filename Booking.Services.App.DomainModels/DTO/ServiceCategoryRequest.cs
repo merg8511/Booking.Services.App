@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Booking.Services.App.Models.DTO
 {
-    public class ServiceCategoryDto
+    public class ServiceCategoryRequest
     {
         public string Id { get; set; }
 
@@ -20,10 +19,7 @@ namespace Booking.Services.App.Models.DTO
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public int Order { get; set; }
-
-        [Required(ErrorMessage = "El campo {0} es requerido")]
         public sbyte IsActive { get; set; }
         public sbyte Deleted { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 using Booking.Services.App.Extensions;
-using Booking.Services.App.Mapping;
 using Booking.Services.App.Middleware;
 using Booking.Services.App.Modules.Interfaces;
 
@@ -12,8 +11,6 @@ builder.Services.AddOpenApi();
 //Add services to container
 builder.Services.AddApplicationService(builder.Configuration);
 builder.Services.RegisterModules();
-MapsterConfig.RegisterMappings();
-
 
 var app = builder.Build();
 
